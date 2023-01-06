@@ -30,30 +30,4 @@ class ModerationResource {
             )
         }
     }
-
-//    @Resource("punishment") @Serializable
-//    class Punishment(
-//        val parent: ModerationResource = ModerationResource()
-//    ) {
-//        @Resource("{uuid}") @Serializable
-//        class Id(
-//             val uuid: String
-//        ) {
-//            @Resource("issue") @Serializable
-//            class Issue
-//
-//            @Resource("revoke") @Serializable
-//            class Revoke
-//        }
-//    }
-//
-//
-//    @Resource("notes") @Serializable
-//    class Notes {
-//        @Resource("add") @Serializable
-//        class Add
-//
-//        @Resource("delete") @Serializable
-//        class Delete
-//    }
 }
