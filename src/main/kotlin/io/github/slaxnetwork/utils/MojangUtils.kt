@@ -12,17 +12,41 @@ import java.util.UUID
 @Serializable
 data class SimpleMojangProfile(
     @Contextual
-    @SerialName("id")
     val uuid: UUID,
 
-    @SerialName("name")
     val username: String
 )
 
-// TODO: 1/6/2023 Look into Mojang rate limiting the API.
-
 object MojangUtils {
-    suspend fun getProfileFromUUID(uuid: UUID): Result<SimpleMojangProfile> {
+    suspend fun getProfile(uuid: UUID): Result<SimpleMojangProfile> {
+        return getProfile(uuid.toString())
+    }
+
+    suspend fun getProfile(query: String): Result<SimpleMojangProfile> {
+        val res = client.get {
+            url {
+                host = "api.ashcon.app"
+                path("mojang", "v2", "user", query)
+                protocol = URLProtocol.HTTPS
+            }
+        }
+
+        // try using mojangs api to get data.
+        if(!res.status.isSuccess()) {
+            return if(query.length > 16) {
+                getProfileFromUUID(UUID.fromString(query))
+            } else {
+                getProfileFromName(query)
+            }
+        }
+
+        return Result.success(
+            res.body<SimpleProxyAshconProfile>()
+                .toMojangProfile()
+        )
+    }
+
+    private suspend fun getProfileFromUUID(uuid: UUID): Result<SimpleMojangProfile> {
         val res = client.get {
             url {
                 host = "sessionserver.mojang.com"
@@ -34,10 +58,13 @@ object MojangUtils {
         if(!res.status.isSuccess() || res.status == HttpStatusCode.NoContent) {
             return Result.failure(RouteError(res.status.value, "mojang api uuid fetch failed for $uuid"))
         }
-        return Result.success(res.body())
+        return Result.success(
+            res.body<SimpleProxyMojangProfile>()
+                .toMojangProfile()
+        )
     }
 
-    suspend fun getProfileFromName(name: String): Result<SimpleMojangProfile> {
+    private suspend fun getProfileFromName(name: String): Result<SimpleMojangProfile> {
         val res = client.get {
             url {
                 host = "api.mojang.com"
@@ -49,6 +76,35 @@ object MojangUtils {
         if(!res.status.isSuccess() || res.status == HttpStatusCode.NoContent) {
             return Result.failure(RouteError(res.status.value, "mojang api name fetch failed for $name"))
         }
-        return Result.success(res.body())
+        return Result.success(
+            res.body<SimpleProxyMojangProfile>()
+                .toMojangProfile()
+        )
+    }
+
+    @Serializable
+    private data class SimpleProxyAshconProfile(
+        @Contextual
+        override val uuid: UUID,
+
+        override val username: String
+    ): ISimpleProfile
+
+    @Serializable
+    private data class SimpleProxyMojangProfile(
+        @Contextual
+        @SerialName("id")
+        override val uuid: UUID,
+
+        @SerialName("name")
+        override val username: String
+    ): ISimpleProfile
+
+    private interface ISimpleProfile {
+        val uuid: UUID
+
+        val username: String
+
+        fun toMojangProfile() = SimpleMojangProfile(uuid, username)
     }
 }
