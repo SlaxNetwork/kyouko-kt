@@ -1,15 +1,11 @@
 # Contributing to Slax Network
 Thank you for showing interest in contributing to Slax! We want to make it as easy as possible for you to contribute to the project wether it be:
+- [Proposing a change](#proposing-a-change)
+- [Reporting a bug](#reporting-a-bug)
+- [Fixing a bug](#fixing-a-bug)
+- [Making a suggestion](#making-a-suggestion)
 
-[Proposing a change](#proposing-a-change)
-
-[Reporting a bug](#reporting-a-bug)
-
-[Fixing a bug](#fixing-a-bug)
-
-[Making a suggestion](#making-a-suggestion)
-
-This project is using the [conventional commits](https://www.conventionalcommits.org/en/v1.0.0-beta.2/) standard. Please follow these steps to ensure your commit messages are standardized:
+This project is using the [conventional commits](https://www.conventionalcommits.org/en/v1.0.0-beta.2/) standard. Please follow these steps to ensure your commit messages are standardized.
 
 # Development Environment
 Before you can contribute code to the project you need to be able to setup a proper development environment to test the code you just wrote.
@@ -26,11 +22,11 @@ Our backend relies on MongoDB in order to persist data, it's recommended to use 
 * Ensure you properly describe your pull request.
 
 # Reporting a Bug
-When reporting a issue to our [Issue Tracker](https://github.com/SlaxNetwork/kyouko/issues) make sure to be as clear and concise as possible.
+When reporting a issue to our [issue tracker](https://github.com/SlaxNetwork/kyouko/issues) make sure to be as clear and concise as possible.
 We need as much information as possible and clear steps to reproduce the issue you had in order to properly fix the bug.
 
 # Fixing a Bug
-When fixing a bug and there isn't already an issue open on our [Issue Tracker](https://github.com/SlaxNetwork/kyouko/issues) make sure to open one and link your Pull Request to it
+When fixing a bug and there isn't already an issue open on our [issue tracker](https://github.com/SlaxNetwork/kyouko/issues) make sure to open one and link your Pull Request to it
 so we know exactly why you're making the changes you are.
 
 Be as clear as possible while making a fix for a bug explaining how the changes you are making will actually fix the issue at hand.
