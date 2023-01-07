@@ -25,7 +25,7 @@ fun Route.profileRouting() {
         "bearer",
         optional = true
     ) {
-        get<ProfileResource> { ctx ->
+        get<ProfileResource.Query> { ctx ->
             var profile = if(ctx.byUsername) {
                 profileRepository.findByName(ctx.query)
             } else {

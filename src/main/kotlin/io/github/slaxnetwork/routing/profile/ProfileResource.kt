@@ -3,9 +3,12 @@ package io.github.slaxnetwork.routing.profile
 import io.ktor.resources.*
 import kotlinx.serialization.Serializable
 
-@Serializable
-@Resource("/profile/{query}")
-class ProfileResource(
-    val query: String,
-    val byUsername: Boolean = false
-)
+@Resource("/profile") @Serializable
+class ProfileResource {
+    @Resource("{query}") @Serializable
+    class Query(
+        val parent: ProfileResource = ProfileResource(),
+        val query: String,
+        val byUsername: Boolean = false
+    )
+}
