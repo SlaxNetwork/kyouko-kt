@@ -5,7 +5,7 @@ Thank you for showing interest in contributing to Slax! We want to make it as ea
 - [Fixing a bug](#fixing-a-bug)
 - [Making a suggestion](#making-a-suggestion)
 
-This project is using the [conventional commits](https://www.conventionalcommits.org/en/v1.0.0-beta.2/) standard. Please follow these steps to ensure your commit messages are standardized.
+This project is using the [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) standard. Please follow these steps to ensure your commit messages are standardized.
 
 # Development Environment
 Before you can contribute code to the project you need to be able to setup a proper development environment to test the code you just wrote.
