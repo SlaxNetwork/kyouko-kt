@@ -34,12 +34,8 @@ fun Route.profileRouting() {
 
             if(profile == null && call.authorized) {
                 // create.
-                val mojangProfile =
-                    (if(ctx.byUsername) {
-                        MojangUtils.getProfileFromName(ctx.query)
-                    } else {
-                        MojangUtils.getProfileFromUUID(UUID.fromString(ctx.query))
-                    }).getOrThrow()
+                val mojangProfile = MojangUtils.getProfile(ctx.query)
+                    .getOrThrow()
 
                 profile = profileRepository.create(Profile(
                     mojangProfile.uuid,
