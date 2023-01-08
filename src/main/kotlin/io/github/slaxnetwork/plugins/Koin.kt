@@ -12,6 +12,8 @@ import io.ktor.server.application.*
 import org.koin.dsl.module
 import org.koin.ktor.plugin.Koin
 
+const val DB_NAME = "slaxnetwork"
+
 fun Application.configureKoin() {
     install(Koin) {
         modules(
@@ -23,8 +25,8 @@ fun Application.configureKoin() {
 private val databaseModule = module {
     single {
         MongoDatabase.create(
-            System.getenv("MONGO_DB_NAME") ?: "slaxnetwork",
-            ConnectionString(System.getenv("MONGO_DB_CONNECTION_STR") ?: "mongodb://localhost:27017/slaxnetwork")
+            DB_NAME,
+            ConnectionString(System.getenv("MONGODB_CONNSTRING") ?: "mongodb://localhost:27017/slaxnetwork")
         )
     }
 
