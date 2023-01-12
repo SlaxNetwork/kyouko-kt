@@ -49,6 +49,9 @@ dependencies {
     implementation("org.litote.kmongo:kmongo-coroutine:$kmongo_version")
     implementation("org.litote.kmongo:kmongo-coroutine-serialization:$kmongo_version")
 
+    // migrating to
+    implementation("com.github.jasync-sql:jasync-postgresql:2.1.8")
+
     implementation("io.insert-koin:koin-core:$koin_version")
     implementation("io.insert-koin:koin-ktor:$koin_version")
 
