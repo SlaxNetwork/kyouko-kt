@@ -1,9 +1,10 @@
 package io.github.slaxnetwork.routing.profile
 
 import io.github.slaxnetwork.api.exceptions.RouteError
+import io.github.slaxnetwork.api.models.tmp.requests.ProfileCreationRequest
 import io.github.slaxnetwork.database.repositories.ProfileRepository
-import io.github.slaxnetwork.api.models.profile.Profile
-import io.github.slaxnetwork.utils.*
+import io.github.slaxnetwork.utils.MojangUtils
+import io.github.slaxnetwork.utils.authorized
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.resources.*
@@ -32,9 +33,8 @@ fun Route.profileRouting() {
                 val mojangProfile = MojangUtils.getProfile(ctx.query ?: throw RouteError.NotFound)
                     .getOrThrow()
 
-                profile = profileRepository.create(Profile(
+                profile = profileRepository.create(ProfileCreationRequest(
                     mojangProfile.uuid,
-                    mojangProfile.username
                 ))
 
             } else if(profile == null) {
@@ -42,6 +42,11 @@ fun Route.profileRouting() {
             }
 
             call.respond(profile)
+        }
+
+        // TODO: 1/13/2023 remove
+        get<ProfileResource.Test> {
+            call.respond(profileRepository.getGameProfile(UUID.fromString("811a95d8-cb80-46bf-8ed0-f8434dae8f0b")) ?: throw RouteError.NotFound)
         }
     }
 }

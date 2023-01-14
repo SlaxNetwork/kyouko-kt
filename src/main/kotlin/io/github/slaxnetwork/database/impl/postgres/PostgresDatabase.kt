@@ -1,6 +1,7 @@
 package io.github.slaxnetwork.database.impl.postgres
 
-import com.github.jasync.sql.db.*
+import com.github.jasync.sql.db.SuspendingConnection
+import com.github.jasync.sql.db.asSuspending
 import com.github.jasync.sql.db.postgresql.PostgreSQLConnectionBuilder
 import java.util.concurrent.TimeUnit
 

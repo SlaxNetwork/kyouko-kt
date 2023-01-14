@@ -27,6 +27,8 @@ dependencies {
 
     implementation(project(":shared"))
 
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.8.0")
+
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
 }
 

@@ -4,7 +4,7 @@ import io.github.slaxnetwork.api.models.staff.punishment.Punishment
 import io.github.slaxnetwork.api.models.staff.punishment.PunishmentRevert
 import io.github.slaxnetwork.api.models.staff.punishment.PunishmentType
 import org.litote.kmongo.Id
-import java.util.UUID
+import java.util.*
 
 interface PunishmentRepository {
     suspend fun issue(punishment: Punishment): Punishment

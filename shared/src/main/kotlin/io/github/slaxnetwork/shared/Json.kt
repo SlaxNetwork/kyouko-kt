@@ -12,11 +12,13 @@ import java.util.*
 
 val JSON = Json {
     ignoreUnknownKeys = true
+    encodeDefaults = true
 
     serializersModule = SerializersModule {
         contextual(UUID::class, UUIDSerializer)
         contextual(Instant::class, InstantSerializer)
 
+        // TODO: 1/13/2023 deprecate.
         contextual(Id::class, IdSerializer())
         contextual(StringId::class, IdSerializer())
     }

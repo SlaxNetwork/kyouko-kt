@@ -4,8 +4,8 @@ import com.github.jasync.sql.db.ResultSet
 import com.github.jasync.sql.db.RowData
 import com.github.jasync.sql.db.SuspendingConnection
 import io.github.slaxnetwork.api.models.rank.Rank
-import io.github.slaxnetwork.database.repositories.RanksRepository
 import io.github.slaxnetwork.database.impl.postgres.utils.execute
+import io.github.slaxnetwork.database.repositories.RanksRepository
 
 class PostgresRanksRepository(
     private val conn: SuspendingConnection
