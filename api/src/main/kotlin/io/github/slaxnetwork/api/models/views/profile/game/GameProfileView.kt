@@ -16,6 +16,14 @@ data class GameProfileView(
     var cookieClicker: CookieClickerProfileView? = null
 ) {
     companion object {
+        /**
+         * Create a [GameProfileView] with populated specific game data.
+         * This is primarily useful for serving API requests that will be requesting
+         * data for specific games, so we can easily send back exactly what we need and no more.
+         *
+         * @param associatedGameProfile the [KClass] of the game profile to populate.
+         * @param rowData the raw data needed to create an instance of the specific game data.
+         */
         fun populated(
             associatedGameProfile: KClass<*>,
             rowData: RowData
@@ -24,13 +32,14 @@ data class GameProfileView(
             val constructor = associatedGameProfile.constructors.firstOrNull { it.hasAnnotation<RowDataConstructor>() }
                 ?: throw RuntimeException("no row data constructor found")
 
-            // epicly constructured o0sdfgkimj game data.
-            // need to turn this into a view bruh
-            val probablyCookieClicker = constructor.call(rowData)
+            // constructed game profile, example CookieClickerProfile
+            val gameProfile = constructor.call(rowData)
 
-            val serializedView = probablyCookieClicker::class.members
+            // turns game profile into a view, example CookieClickerProfileView
+            val gameProfileView = gameProfile::class.members
+                // find the method to serialize into a view.
                 .firstOrNull { it.hasAnnotation<ViewSerializerMethod>() }
-                ?.call(probablyCookieClicker)
+                ?.call(gameProfile)
                 ?: throw RuntimeException("no view serializer method found")
 
             val inst = GameProfileView()
@@ -38,14 +47,15 @@ data class GameProfileView(
             val property = GameProfileView::class.declaredMemberProperties
                 .firstOrNull {
                     it.instanceParameter?.type?.classifier?.javaClass
-                        ?.isInstance(serializedView::class)
+                        ?.isInstance(gameProfileView::class)
                         ?: false
                 }?.apply { isAccessible = true }
-                ?: throw NullPointerException("e")
+                ?: throw NullPointerException("no property for ${gameProfileView::class.simpleName} exists")
 
             if(property is KMutableProperty1<GameProfileView, *>) {
+                // finally set the needed property on GameProfileView to the game data view.
                 (property as KMutableProperty1<GameProfileView, Any>)
-                    .set(inst, serializedView)
+                    .set(inst, gameProfileView)
             }
 
             return inst

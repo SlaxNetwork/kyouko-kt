@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit
 
 object PostgresDatabase {
     fun create(): SuspendingConnection {
+        // TODO: 1/14/2023 allow for env modification.
         val conn: SuspendingConnection = PostgreSQLConnectionBuilder
             .createConnectionPool {
                 username = "root"
