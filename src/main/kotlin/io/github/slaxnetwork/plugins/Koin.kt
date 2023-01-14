@@ -13,6 +13,8 @@ import io.ktor.server.application.*
 import org.koin.dsl.module
 import org.koin.ktor.plugin.Koin
 
+const val DB_NAME = "slaxnetwork"
+
 fun Application.configureKoin() {
     install(Koin) {
         modules(
@@ -22,20 +24,13 @@ fun Application.configureKoin() {
 }
 
 private val databaseModule = module {
-//    single {
-//        MongoDatabase.create(
-//            System.getenv("MONGO_DB_NAME") ?: "slaxnetwork",
-//            ConnectionString(System.getenv("MONGO_DB_CONNECTION_STR") ?: "mongodb://localhost:27017/slaxnetwork")
-//        )
-//    }
-
     single {
         PostgresDatabase.create()
+
     }
 
     single<CookieClickerRepository> { PostgresCookieClickerRepository(get()) }
     single<GameProfileRepository> { PostgresGameProfileRepository(get()) }
     single<ProfileRepository> { PostgresProfileRepository(get(), get()) }
     single<RanksRepository> { PostgresRanksRepository(get()) }
-//    single<PunishmentRepository> { MongoPunishmentRepository(get(), get()) }
 }
