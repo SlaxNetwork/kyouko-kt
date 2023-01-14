@@ -5,7 +5,6 @@ import io.github.slaxnetwork.plugins.*
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
-import kotlinx.serialization.EncodeDefault
 import org.slf4j.LoggerFactory
 
 fun main(args: Array<String>): Unit =

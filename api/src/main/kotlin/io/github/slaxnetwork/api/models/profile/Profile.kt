@@ -1,30 +1,33 @@
 package io.github.slaxnetwork.api.models.profile
 
-import io.github.slaxnetwork.api.models.VersionedDocument
-import io.github.slaxnetwork.api.models.rank.Rank
-import io.github.slaxnetwork.api.models.staff.punishment.Punishment
+import com.github.jasync.sql.db.RowData
+import io.github.slaxnetwork.api.annotations.RowDataConstructor
+import io.github.slaxnetwork.api.exceptions.DatabaseDeserializeException
+import io.github.slaxnetwork.api.models.views.profile.ProfileView
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
-import org.litote.kmongo.Id
 import java.util.UUID
 
-@Serializable
+@kotlinx.serialization.Serializable
 data class Profile(
     @Contextual
-    @SerialName("_id")
-    val uuid: UUID,
-
-    val username: String,
+    val id: UUID,
 
     @SerialName("rank_id")
-    val rankId: String = "default",
+    val rankId: String,
 
-//    @SerialName("game_profile")
-//    val gameProfile: GameProfile,
+    val gameProfileId: Int
+) {
+    @RowDataConstructor
+    constructor(rowData: RowData) :
+            this(
+                rowData.getAs("id") ?: throw DatabaseDeserializeException(Profile::id),
+                rowData.getString("rankId") ?: throw DatabaseDeserializeException(Profile::rankId),
+                rowData.getInt("gameProfileId") ?: throw DatabaseDeserializeException(Profile::gameProfileId)
+            )
 
-    val punishments: Set<@Contextual Id<@Contextual Punishment>> = emptySet(),
-): VersionedDocument {
-    constructor(uuid: UUID, username: String)
-            : this(uuid, username, Rank.DEFAULT_RANK_ID)
+    fun toView() = ProfileView(
+        id,
+        rankId
+    )
 }

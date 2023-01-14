@@ -1,13 +1,14 @@
 package io.github.slaxnetwork.plugins
 
-import com.mongodb.ConnectionString
-import io.github.slaxnetwork.database.impl.mongo.MongoDatabase
-import io.github.slaxnetwork.database.impl.mongo.repositories.MongoProfileRepository
-import io.github.slaxnetwork.database.impl.mongo.repositories.MongoPunishmentRepository
-import io.github.slaxnetwork.database.impl.mongo.repositories.MongoRanksRepository
+import io.github.slaxnetwork.database.impl.postgres.PostgresDatabase
+import io.github.slaxnetwork.database.impl.postgres.repositories.PostgresGameProfileRepository
+import io.github.slaxnetwork.database.impl.postgres.repositories.PostgresProfileRepository
+import io.github.slaxnetwork.database.impl.postgres.repositories.PostgresRanksRepository
+import io.github.slaxnetwork.database.impl.postgres.repositories.game.PostgresCookieClickerRepository
+import io.github.slaxnetwork.database.repositories.GameProfileRepository
 import io.github.slaxnetwork.database.repositories.ProfileRepository
-import io.github.slaxnetwork.database.repositories.PunishmentRepository
 import io.github.slaxnetwork.database.repositories.RanksRepository
+import io.github.slaxnetwork.database.repositories.game.CookieClickerRepository
 import io.ktor.server.application.*
 import org.koin.dsl.module
 import org.koin.ktor.plugin.Koin
@@ -24,13 +25,12 @@ fun Application.configureKoin() {
 
 private val databaseModule = module {
     single {
-        MongoDatabase.create(
-            DB_NAME,
-            ConnectionString(System.getenv("MONGODB_CONNSTRING") ?: "mongodb://localhost:27017/slaxnetwork")
-        )
+        PostgresDatabase.create()
+
     }
 
-    single<ProfileRepository> { MongoProfileRepository(get()) }
-    single<RanksRepository> { MongoRanksRepository(get()) }
-    single<PunishmentRepository> { MongoPunishmentRepository(get(), get()) }
+    single<CookieClickerRepository> { PostgresCookieClickerRepository(get()) }
+    single<GameProfileRepository> { PostgresGameProfileRepository(get()) }
+    single<ProfileRepository> { PostgresProfileRepository(get(), get()) }
+    single<RanksRepository> { PostgresRanksRepository(get()) }
 }

@@ -1,7 +1,7 @@
 package io.github.slaxnetwork.plugins
 
-import io.ktor.server.auth.*
 import io.ktor.server.application.*
+import io.ktor.server.auth.*
 
 // security 100
 const val EXTREMELY_SECURE_TOKEN_THAT_WILL_NEVER_BE_LEAKED = "kyouko"
