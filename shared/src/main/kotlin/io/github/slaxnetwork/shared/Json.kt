@@ -1,12 +1,9 @@
 package io.github.slaxnetwork.shared
 
-import io.github.slaxnetwork.shared.serializers.IdSerializer
 import io.github.slaxnetwork.shared.serializers.InstantSerializer
 import io.github.slaxnetwork.shared.serializers.UUIDSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
-import org.litote.kmongo.Id
-import org.litote.kmongo.id.StringId
 import java.time.Instant
 import java.util.*
 
@@ -17,9 +14,5 @@ val JSON = Json {
     serializersModule = SerializersModule {
         contextual(UUID::class, UUIDSerializer)
         contextual(Instant::class, InstantSerializer)
-
-        // TODO: 1/13/2023 deprecate.
-        contextual(Id::class, IdSerializer())
-        contextual(StringId::class, IdSerializer())
     }
 }

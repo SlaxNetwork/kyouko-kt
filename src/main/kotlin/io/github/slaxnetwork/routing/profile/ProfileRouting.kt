@@ -27,6 +27,7 @@ fun Route.profileRouting() {
             } else if(ctx.username != null) {
                 throw RouteError.NotFound
             } else {
+                // TODO: 1/14/2023 don't hardcode.
                 throw RouteError(422, "uuid or username not passed.")
             }
 
