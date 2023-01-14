@@ -1,8 +1,9 @@
-package io.github.slaxnetwork.api.models.tmp
+package io.github.slaxnetwork.api.models.profile.game
 
 import com.github.jasync.sql.db.RowData
-import io.github.slaxnetwork.api.exceptions.DTOException
-import io.github.slaxnetwork.api.models.views.GameProfileView
+import io.github.slaxnetwork.api.annotations.RowDataConstructor
+import io.github.slaxnetwork.api.exceptions.DatabaseDeserializeException
+import io.github.slaxnetwork.api.models.views.profile.game.GameProfileView
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -13,9 +14,10 @@ data class GameProfile(
     @SerialName("cookie_clicker_profile_id")
     val cookieClickerProfileId: Int? = null
 ) {
+    @RowDataConstructor
     constructor(rowData: RowData) :
             this(
-                rowData.getInt("id") ?: throw DTOException("id"),
+                rowData.getInt("id") ?: throw DatabaseDeserializeException(GameProfile::id),
                 rowData.getInt("cookieClickerProfileId")
             )
 

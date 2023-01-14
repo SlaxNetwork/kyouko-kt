@@ -17,10 +17,6 @@ dependencies {
     api("io.ktor:ktor-client-content-negotiation:$ktor_version")
     api("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
 
-    implementation("org.litote.kmongo:kmongo-coroutine:$kmongo_version")
-    implementation("org.litote.kmongo:kmongo-coroutine-serialization:$kmongo_version")
-    api("org.litote.kmongo:kmongo-id:$kmongo_version")
-
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
 }
 

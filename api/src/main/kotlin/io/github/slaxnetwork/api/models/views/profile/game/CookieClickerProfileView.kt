@@ -1,4 +1,4 @@
-package io.github.slaxnetwork.api.models.views
+package io.github.slaxnetwork.api.models.views.profile.game
 
 import kotlinx.serialization.Serializable
 

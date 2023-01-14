@@ -1,7 +1,6 @@
 package io.github.slaxnetwork.routing.profile
 
 import io.github.slaxnetwork.api.exceptions.RouteError
-import io.github.slaxnetwork.api.models.tmp.requests.ProfileCreationRequest
 import io.github.slaxnetwork.database.repositories.ProfileRepository
 import io.github.slaxnetwork.utils.MojangUtils
 import io.github.slaxnetwork.utils.authorized
@@ -15,6 +14,8 @@ import java.util.*
 
 fun Route.profileRouting() {
     val profileRepository by inject<ProfileRepository>()
+
+    gameProfileRouting()
 
     authenticate(
         "bearer",
@@ -33,20 +34,12 @@ fun Route.profileRouting() {
                 val mojangProfile = MojangUtils.getProfile(ctx.query ?: throw RouteError.NotFound)
                     .getOrThrow()
 
-                profile = profileRepository.create(ProfileCreationRequest(
-                    mojangProfile.uuid,
-                ))
-
+                profile = profileRepository.create(mojangProfile.uuid)
             } else if(profile == null) {
                 throw RouteError.NotFound
             }
 
             call.respond(profile)
-        }
-
-        // TODO: 1/13/2023 remove
-        get<ProfileResource.Test> {
-            call.respond(profileRepository.getGameProfile(UUID.fromString("811a95d8-cb80-46bf-8ed0-f8434dae8f0b")) ?: throw RouteError.NotFound)
         }
     }
 }

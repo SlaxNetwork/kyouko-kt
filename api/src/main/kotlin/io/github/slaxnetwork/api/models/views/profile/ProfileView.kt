@@ -1,4 +1,4 @@
-package io.github.slaxnetwork.api.models.views
+package io.github.slaxnetwork.api.models.views.profile
 
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
@@ -11,8 +11,5 @@ data class ProfileView(
     val id: UUID,
 
     @SerialName("rank_id")
-    val rankId: String,
-
-    @SerialName("game_profile")
-    val gameProfile: GameProfileView
+    val rankId: String
 )

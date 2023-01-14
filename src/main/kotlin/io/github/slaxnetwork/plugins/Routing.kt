@@ -1,7 +1,6 @@
 package io.github.slaxnetwork.plugins
 
 import io.github.slaxnetwork.api.exceptions.RouteError
-import io.github.slaxnetwork.routing.moderation.moderationRouting
 import io.github.slaxnetwork.routing.profile.profileRouting
 import io.github.slaxnetwork.routing.ranks.ranksRouting
 import io.ktor.http.*
@@ -43,6 +42,5 @@ fun Application.configureRouting() {
     routing {
         profileRouting()
         ranksRouting()
-        moderationRouting()
     }
 }

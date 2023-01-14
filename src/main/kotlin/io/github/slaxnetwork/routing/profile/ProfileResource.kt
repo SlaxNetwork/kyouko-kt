@@ -11,8 +11,19 @@ class ProfileResource(
     // null if both fail.
     val query get() = uuid ?: username
 
-    @Resource("test") @Serializable
-    class Test(
-        val parent: ProfileResource = ProfileResource()
-    )
+    @Resource("{uuid}") @Serializable
+    class Id(
+        val parent: ProfileResource = ProfileResource(),
+
+        val uuid: String
+    ) {
+        @Resource("games") @Serializable
+        class Games(
+            val parent: Id,
+
+            val type: String
+        ) {
+            val uuid get() = parent.uuid
+        }
+    }
 }
