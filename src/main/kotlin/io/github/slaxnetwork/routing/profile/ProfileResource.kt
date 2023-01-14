@@ -4,11 +4,10 @@ import io.ktor.resources.*
 import kotlinx.serialization.Serializable
 
 @Resource("/profile") @Serializable
-class ProfileResource {
-    @Resource("{query}") @Serializable
-    class Query(
-        val parent: ProfileResource = ProfileResource(),
-        val query: String,
-        val byUsername: Boolean = false
-    )
+class ProfileResource(
+    val uuid: String? = null,
+    val username: String? = null
+) {
+    // null if both fail.
+    val query get() = uuid ?: username
 }

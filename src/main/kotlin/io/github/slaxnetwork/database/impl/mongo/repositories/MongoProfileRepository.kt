@@ -1,5 +1,6 @@
 package io.github.slaxnetwork.database.impl.mongo.repositories
 
+import io.github.slaxnetwork.api.models.dto.ProfileDTO
 import io.github.slaxnetwork.database.repositories.ProfileRepository
 import io.github.slaxnetwork.api.models.profile.Profile
 import io.github.slaxnetwork.api.models.staff.punishment.Punishment
@@ -11,26 +12,24 @@ import java.util.*
 
 class MongoProfileRepository(db: CoroutineDatabase) : ProfileRepository {
     private val collection = db.getCollection<Profile>("profiles")
+    override suspend fun create(profile: Profile): ProfileDTO {
+        TODO("Not yet implemented")
+    }
 
     override suspend fun findByName(name: String): Profile? {
-        // TODO: 12/31/2022 please handle case in-sensitive
-        return collection.findOne(Profile::username eq name)
+        TODO("Not yet implemented")
     }
 
-    override suspend fun findByUUID(uuid: UUID): Profile? {
-        return collection.findOneById(uuid)
-    }
-
-    override suspend fun create(profile: Profile): Profile {
-        collection.insertOne(profile)
-        return profile
+    override suspend fun findByUUID(uuid: UUID): ProfileDTO? {
+        TODO("Not yet implemented")
     }
 
     override suspend fun addPunishment(uuid: UUID, id: Id<Punishment>) {
-        collection.updateOneById(uuid, push(Profile::punishments, id))
+        TODO("Not yet implemented")
     }
 
-    override suspend fun getAll(): List<Profile> {
-        return collection.find().toList()
+    override suspend fun getAll(): List<ProfileDTO> {
+        TODO("Not yet implemented")
     }
+
 }

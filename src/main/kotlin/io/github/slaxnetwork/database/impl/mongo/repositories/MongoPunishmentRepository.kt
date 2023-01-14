@@ -15,37 +15,27 @@ class MongoPunishmentRepository(
 ): PunishmentRepository {
     private val collection = db.getCollection<Punishment>("punishments")
     override suspend fun issue(punishment: Punishment): Punishment {
-        collection.insertOne(punishment)
-        profileRepository.addPunishment(punishment.issued, punishment.id)
-        return punishment
+        TODO("Not yet implemented")
     }
 
     override suspend fun revert(id: Id<Punishment>, revert: PunishmentRevert) {
-        collection.updateOneById(id, setValue(Punishment::revert, revert))
+        TODO("Not yet implemented")
     }
 
     override suspend fun getAllFromPlayer(issued: UUID): List<Punishment> {
-        val profile = profileRepository.findByUUID(issued)
-            ?: return emptyList()
-
-        return profile.punishments.mapNotNull {
-            collection.findOneById(it)
-        }
+        TODO("Not yet implemented")
     }
 
     override suspend fun getAllFromPlayer(issued: UUID, type: PunishmentType): List<Punishment> {
-        return getAllFromPlayer(issued).filter {
-            it.type == type
-        }
+        TODO("Not yet implemented")
     }
 
     override suspend fun getActivePunishment(issued: UUID, type: PunishmentType): Punishment? {
-        return getAllFromPlayer(issued).firstOrNull {
-            it.type == type && it.active
-        }
+        TODO("Not yet implemented")
     }
 
     override suspend fun findById(id: Id<Punishment>): Punishment? {
-        return collection.findOneById(id)
+        TODO("Not yet implemented")
     }
+
 }

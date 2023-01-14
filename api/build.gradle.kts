@@ -18,6 +18,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.6.4")
 
+    compileOnly("com.github.jasync-sql:jasync-postgresql:2.1.8")
+
     api("io.ktor:ktor-client-core:$ktor_version")
     api("io.ktor:ktor-client-cio:$ktor_version")
     api("io.ktor:ktor-client-content-negotiation:$ktor_version")

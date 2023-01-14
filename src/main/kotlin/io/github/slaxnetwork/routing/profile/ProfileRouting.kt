@@ -19,22 +19,24 @@ fun Route.profileRouting() {
         "bearer",
         optional = true
     ) {
-        get<ProfileResource.Query> { ctx ->
-            var profile = if(ctx.byUsername) {
-                profileRepository.findByName(ctx.query)
+        get<ProfileResource> { ctx ->
+            var profile = if(ctx.uuid != null) {
+                profileRepository.findByUUID(UUID.fromString(ctx.uuid))
+            } else if(ctx.username != null) {
+                throw RouteError.NotFound
             } else {
-                profileRepository.findByUUID(UUID.fromString(ctx.query))
+                throw RouteError(422, "uuid or username not passed.")
             }
 
             if(profile == null && call.authorized) {
-                // create.
-                val mojangProfile = MojangUtils.getProfile(ctx.query)
+                val mojangProfile = MojangUtils.getProfile(ctx.query ?: throw RouteError.NotFound)
                     .getOrThrow()
 
                 profile = profileRepository.create(Profile(
                     mojangProfile.uuid,
                     mojangProfile.username
                 ))
+
             } else if(profile == null) {
                 throw RouteError.NotFound
             }

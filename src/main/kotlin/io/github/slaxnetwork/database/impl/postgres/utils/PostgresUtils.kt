@@ -15,3 +15,7 @@ suspend fun SuspendingConnection.execute(@Language("SQL") query: String, args: L
 suspend fun SuspendingConnection.execute(@Language("SQL") query: String, vararg args: Any?): QueryResult {
     return execute(query, args.toList())
 }
+
+val QueryResult.firstRow get() = rows.first()
+
+val QueryResult.firstNullableRow get() = rows.firstOrNull()
