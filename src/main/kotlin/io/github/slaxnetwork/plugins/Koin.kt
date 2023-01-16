@@ -30,7 +30,7 @@ private val databaseModule = module {
     }
 
     single<CookieClickerRepository> { PostgresCookieClickerRepository(get()) }
-    single<GameProfileRepository> { PostgresGameProfileRepository(get()) }
+    single<GameProfileRepository> { PostgresGameProfileRepository(get(), get()) }
     single<ProfileRepository> { PostgresProfileRepository(get(), get()) }
     single<RanksRepository> { PostgresRanksRepository(get()) }
 }

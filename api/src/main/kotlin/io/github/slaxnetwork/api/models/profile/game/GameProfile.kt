@@ -3,7 +3,6 @@ package io.github.slaxnetwork.api.models.profile.game
 import com.github.jasync.sql.db.RowData
 import io.github.slaxnetwork.api.annotations.RowDataConstructor
 import io.github.slaxnetwork.api.exceptions.DatabaseDeserializeException
-import io.github.slaxnetwork.api.models.views.profile.game.GameProfileView
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -20,10 +19,4 @@ data class GameProfile(
                 rowData.getInt("id") ?: throw DatabaseDeserializeException(GameProfile::id),
                 rowData.getInt("cookieClickerProfileId")
             )
-
-    fun toView(
-        cookieClickerProfile: CookieClickerProfile
-    ) = GameProfileView(
-        cookieClickerProfile.toView()
-    )
 }

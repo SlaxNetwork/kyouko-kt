@@ -1,7 +1,7 @@
 package io.github.slaxnetwork.database.repositories
 
 import io.github.slaxnetwork.api.models.profile.game.GameProfile
-import io.github.slaxnetwork.api.models.views.profile.game.GameProfileView
+import io.github.slaxnetwork.api.models.views.profile.game.PopulatedGameProfileView
 import java.util.UUID
 
 interface GameProfileRepository {
@@ -13,5 +13,5 @@ interface GameProfileRepository {
 
     suspend fun findByUUID(uuid: UUID): GameProfile?
 
-    suspend fun findByUUIDAndPopulate(uuid: UUID, type: String): GameProfileView?
+    suspend fun findByUUIDAndPopulate(uuid: UUID, game: String): PopulatedGameProfileView?
 }
