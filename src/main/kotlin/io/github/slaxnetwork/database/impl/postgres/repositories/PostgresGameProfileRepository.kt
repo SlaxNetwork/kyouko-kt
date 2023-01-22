@@ -2,7 +2,6 @@ package io.github.slaxnetwork.database.impl.postgres.repositories
 
 import com.github.jasync.sql.db.SuspendingConnection
 import io.github.slaxnetwork.api.models.profile.game.GameProfile
-import io.github.slaxnetwork.api.models.views.profile.game.PopulatedGameProfileView
 import io.github.slaxnetwork.database.impl.postgres.utils.execute
 import io.github.slaxnetwork.database.impl.postgres.utils.firstNullableRow
 import io.github.slaxnetwork.database.impl.postgres.utils.firstRow
@@ -11,10 +10,8 @@ import io.github.slaxnetwork.database.repositories.game.CookieClickerRepository
 import java.util.*
 
 class PostgresGameProfileRepository(
-    private val conn: SuspendingConnection,
-
-    private val cookieClickerRepository: CookieClickerRepository
-) : GameProfileRepository {
+    private val conn: SuspendingConnection
+): GameProfileRepository {
     override suspend fun create(): Int {
         return conn.execute(
             """
@@ -23,7 +20,7 @@ class PostgresGameProfileRepository(
         ).firstRow.getInt("id")!!
     }
 
-    override suspend fun find(id: Int): GameProfile? {
+    override suspend fun findById(id: Int): GameProfile? {
         val row = conn.execute(
             """
                 SELECT * FROM "GameProfile" WHERE id = ? LIMIT 1;
@@ -32,10 +29,6 @@ class PostgresGameProfileRepository(
         ).firstNullableRow ?: return null
 
         return GameProfile(row)
-    }
-
-    override suspend fun findByIdAndPopulate(id: Int, type: String): GameProfile? {
-        TODO("Not yet implemented")
     }
 
     override suspend fun findByUUID(uuid: UUID): GameProfile? {
@@ -49,13 +42,5 @@ class PostgresGameProfileRepository(
         ).firstNullableRow ?: return null
 
         return GameProfile(row)
-    }
-
-    override suspend fun findByUUIDAndPopulate(uuid: UUID, game: String): PopulatedGameProfileView? {
-        return when(game.lowercase()) {
-            "cookieclicker" -> cookieClickerRepository.getPopulatedGameProfileByUUID(uuid)
-
-            else -> null
-        }
     }
 }

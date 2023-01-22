@@ -2,7 +2,6 @@ package io.github.slaxnetwork.api.models.profile.game.cookieclicker
 
 import com.github.jasync.sql.db.RowData
 import io.github.slaxnetwork.api.annotations.RowDataConstructor
-import io.github.slaxnetwork.api.annotations.ViewSerializerMethod
 import io.github.slaxnetwork.api.exceptions.DatabaseDeserializeException
 import io.github.slaxnetwork.api.models.views.profile.game.cookieclicker.CookieClickerProfileView
 import kotlinx.serialization.Serializable
@@ -23,7 +22,6 @@ data class CookieClickerProfile(
                 CookieClickerUpgrades(rowData)
             )
 
-    @ViewSerializerMethod
     fun toView() = CookieClickerProfileView(
         cookies,
         upgrades.toView()

@@ -3,8 +3,9 @@ package io.github.slaxnetwork.api.models.profile.game.cookieclicker
 import com.github.jasync.sql.db.RowData
 import io.github.slaxnetwork.api.exceptions.DatabaseDeserializeException
 import io.github.slaxnetwork.api.models.views.profile.game.cookieclicker.CookieClickerUpgradesView
+import kotlinx.serialization.Serializable
 
-@kotlinx.serialization.Serializable
+@Serializable
 data class CookieClickerUpgrades(
     val testUpgrade: Int
 ) {

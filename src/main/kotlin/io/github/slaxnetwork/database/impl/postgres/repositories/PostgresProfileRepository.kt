@@ -51,7 +51,7 @@ class PostgresProfileRepository(
             uuid
         ).firstNullableRow?.getInt("gameProfileId") ?: return null
 
-        return gameProfileRepository.find(gameProfileId)
+        return gameProfileRepository.findById(gameProfileId)
     }
 
     override suspend fun getAll(): List<Profile> {
