@@ -1,0 +1,28 @@
+package io.github.slaxnetwork.routing.game.cookieclicker
+
+import io.github.slaxnetwork.api.exceptions.RouteError
+import io.github.slaxnetwork.database.repositories.game.CookieClickerRepository
+import io.github.slaxnetwork.routing.game.GameResource
+import io.github.slaxnetwork.utils.toUUID
+import io.ktor.server.application.*
+import io.ktor.server.resources.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
+import org.koin.ktor.ext.inject
+
+// TODO: 1/21/2023 auth
+fun Route.cookieClickerRouting() {
+    val cookieClickerRepository by inject<CookieClickerRepository>()
+
+    get<GameResource.CookieClicker.Profile> { ctx ->
+        val uuid = ctx.uuid.toUUID()
+            ?: throw RouteError.InvalidId
+
+        var profile = cookieClickerRepository.findByUUID(uuid)
+        if(profile == null) {
+            profile = cookieClickerRepository.findById(cookieClickerRepository.create(uuid))!!
+        }
+
+        call.respond(profile.toView())
+    }
+}
