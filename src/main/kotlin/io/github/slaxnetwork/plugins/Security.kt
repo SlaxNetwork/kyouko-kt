@@ -15,7 +15,7 @@ fun Application.configureSecurity() {
                 if(tokenCredential.token == EXTREMELY_SECURE_TOKEN_THAT_WILL_NEVER_BE_LEAKED) {
                     PrincipalResult.Authorized
                 } else {
-                    PrincipalResult.Unauthorized
+                    null
                 }
             }
         }
