@@ -15,8 +15,6 @@ import java.util.*
 fun Route.profileRouting() {
     val profileRepository by inject<ProfileRepository>()
 
-    gameProfileRouting()
-
     authenticate(
         "bearer",
         optional = true
