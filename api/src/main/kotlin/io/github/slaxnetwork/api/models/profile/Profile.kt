@@ -1,12 +1,11 @@
 package io.github.slaxnetwork.api.models.profile
 
 import com.github.jasync.sql.db.RowData
-import io.github.slaxnetwork.api.annotations.RowDataConstructor
 import io.github.slaxnetwork.api.exceptions.DatabaseDeserializeException
 import io.github.slaxnetwork.api.models.views.profile.ProfileView
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
-import java.util.UUID
+import java.util.*
 
 @kotlinx.serialization.Serializable
 data class Profile(
@@ -18,7 +17,6 @@ data class Profile(
 
     val gameProfileId: Int
 ) {
-    @RowDataConstructor
     constructor(rowData: RowData) :
             this(
                 rowData.getAs("id") ?: throw DatabaseDeserializeException(Profile::id),
