@@ -15,13 +15,12 @@ fun Route.cookieClickerRouting() {
     val cookieClickerRepository by inject<CookieClickerRepository>()
 
     get<GameResource.CookieClicker.Profile> { ctx ->
-        val uuid = ctx.uuid.toUUID()
+        val uuid = ctx.uuid
             ?: throw RouteError.InvalidId
 
-        var profile = cookieClickerRepository.findByUUID(uuid)
-        if(profile == null) {
-            profile = cookieClickerRepository.findById(cookieClickerRepository.create(uuid))!!
-        }
+        val profile = cookieClickerRepository.findByUUID(uuid)
+            ?: cookieClickerRepository.findById(cookieClickerRepository.create(uuid))
+            ?: throw RuntimeException("failed to create profile for $uuid")
 
         call.respond(profile.toView())
     }

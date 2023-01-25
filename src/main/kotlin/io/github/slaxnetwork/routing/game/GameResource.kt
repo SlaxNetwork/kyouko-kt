@@ -1,6 +1,8 @@
 package io.github.slaxnetwork.routing.game
 
+import io.github.slaxnetwork.utils.toUUID
 import io.ktor.resources.*
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Resource("/games") @Serializable
@@ -13,7 +15,10 @@ class GameResource {
         class Profile(
             val parent: CookieClicker,
 
-            val uuid: String
-        )
+            @SerialName("uuid")
+            val uuidStr: String
+        ) {
+            val uuid get() = uuidStr.toUUID()
+        }
     }
 }
