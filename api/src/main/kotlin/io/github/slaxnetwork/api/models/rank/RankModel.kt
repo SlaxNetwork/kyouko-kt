@@ -6,13 +6,13 @@ import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Rank(
+data class RankModel(
     @Contextual
     val id: String
 ) {
     constructor(rowData: RowData) :
             this(
-                rowData.getString("id") ?: throw DatabaseDeserializeException(Rank::id)
+                rowData.getString("id") ?: throw DatabaseDeserializeException(RankModel::id)
             )
 
     companion object {

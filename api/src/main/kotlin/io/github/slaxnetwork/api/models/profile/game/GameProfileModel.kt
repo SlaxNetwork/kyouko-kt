@@ -5,8 +5,7 @@ import io.github.slaxnetwork.api.exceptions.DatabaseDeserializeException
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-@Serializable
-data class GameProfile(
+data class GameProfileModel(
     val id: Int,
 
     @SerialName("cookie_clicker_profile_id")
@@ -14,7 +13,7 @@ data class GameProfile(
 ) {
     constructor(rowData: RowData) :
             this(
-                rowData.getInt("id") ?: throw DatabaseDeserializeException(GameProfile::id),
+                rowData.getInt("id") ?: throw DatabaseDeserializeException(GameProfileModel::id),
                 rowData.getInt("cookieClickerProfileId")
             )
 }

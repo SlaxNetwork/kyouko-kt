@@ -1,7 +1,7 @@
 package io.github.slaxnetwork.routing.ranks
 
 import io.github.slaxnetwork.api.exceptions.RouteError
-import io.github.slaxnetwork.api.models.rank.Rank
+import io.github.slaxnetwork.api.models.rank.RankModel
 import io.github.slaxnetwork.database.repositories.RanksRepository
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
@@ -31,7 +31,7 @@ fun Route.ranksRouting() {
         optional = false
     ) {
         post<RanksResource> {
-            val rank = call.receiveNullable<Rank>()
+            val rank = call.receiveNullable<RankModel>()
                 ?: throw RouteError.InvalidBody
 
             if(ranksRepository.findById(rank.id) != null) {
@@ -43,7 +43,7 @@ fun Route.ranksRouting() {
         }
 
         patch<RanksResource.Id> { ctx ->
-            val rank = call.receiveNullable<Rank>()
+            val rank = call.receiveNullable<RankModel>()
                 ?: throw RouteError.InvalidBody
 
             if(ranksRepository.findById(rank.id) == null) {

@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 import java.util.*
 
 @Serializable
-data class ProfileView(
+data class Profile(
     @Contextual
     val id: UUID,
 
