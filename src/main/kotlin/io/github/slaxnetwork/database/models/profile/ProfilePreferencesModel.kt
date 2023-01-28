@@ -17,7 +17,7 @@ data class ProfilePreferencesModel(
         )
     }
 
-    fun toView() = ProfilePreferences(
+    fun toDTO() = ProfilePreferences(
         language
     )
 }

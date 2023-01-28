@@ -5,7 +5,6 @@ import io.github.slaxnetwork.database.repositories.ProfilePreferencesRepository
 import io.github.slaxnetwork.database.repositories.ProfileRepository
 import io.github.slaxnetwork.utils.MojangUtils
 import io.github.slaxnetwork.utils.authorized
-import io.github.slaxnetwork.utils.toUUID
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.resources.*
@@ -44,8 +43,8 @@ fun Route.profileRouting() {
             val preferences = preferencesRepository.findById(profile?.preferencesId ?: throw RouteError.NotFound)
                 ?: throw RouteError.NotFound
 
-            call.respond(profile.toView(
-                preferences.toView()
+            call.respond(profile.toDTO(
+                preferences.toDTO()
             ))
         }
     }

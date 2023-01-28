@@ -28,7 +28,7 @@ data class ProfileModel(
         )
     }
 
-    fun toView(
+    fun toDTO(
         preferences: ProfilePreferences
     ) = Profile(
         id,

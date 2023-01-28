@@ -7,12 +7,19 @@ import io.github.slaxnetwork.api.dto.game.cookieclicker.CookieClickerUpgrades
 data class CookieClickerUpgradesModel(
     val testUpgrade: Int
 ) {
+    @Deprecated("use static method instead", level = DeprecationLevel.WARNING)
     constructor(rowData: RowData) :
             this(
                 rowData.getInt("testUpgrade") ?: throw DatabaseDeserializeException(CookieClickerUpgradesModel::testUpgrade)
             )
 
-    fun toView() = CookieClickerUpgrades(
+    companion object {
+        fun fromRowData(rowData: RowData) = CookieClickerUpgradesModel(
+            rowData.getInt("testUpgrade") ?: throw DatabaseDeserializeException(CookieClickerUpgradesModel::testUpgrade)
+        )
+    }
+
+    fun toDTO() = CookieClickerUpgrades(
         testUpgrade
     )
 }

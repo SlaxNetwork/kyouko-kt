@@ -11,9 +11,21 @@ data class GameProfileModel(
     @SerialName("cookie_clicker_profile_id")
     val cookieClickerProfileId: Int? = null
 ) {
+    @Deprecated("use static method instead", level = DeprecationLevel.WARNING)
     constructor(rowData: RowData) :
             this(
                 rowData.getInt("id") ?: throw DatabaseDeserializeException(GameProfileModel::id),
                 rowData.getInt("cookieClickerProfileId")
             )
+
+    companion object {
+        fun fromRowData(rowData: RowData) = GameProfileModel(
+            rowData.getInt("id") ?: throw DatabaseDeserializeException(GameProfileModel::id),
+            rowData.getInt("cookieClickerProfileId")
+        )
+    }
+
+    fun toDTO() {
+        TODO("implement pls")
+    }
 }
