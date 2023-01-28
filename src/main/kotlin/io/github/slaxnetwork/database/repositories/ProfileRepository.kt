@@ -1,17 +1,17 @@
 package io.github.slaxnetwork.database.repositories
 
-import io.github.slaxnetwork.api.models.profile.game.GameProfile
-import io.github.slaxnetwork.api.models.profile.Profile
+import io.github.slaxnetwork.database.models.profile.game.GameProfileModel
+import io.github.slaxnetwork.database.models.profile.ProfileModel
 import java.util.*
 
 interface ProfileRepository {
-    suspend fun create(uuid: UUID): Profile
+    suspend fun create(uuid: UUID): ProfileModel
 
-    suspend fun findByName(name: String): Profile?
+    suspend fun findByName(name: String): ProfileModel?
 
-    suspend fun findByUUID(uuid: UUID): Profile?
+    suspend fun findByUUID(uuid: UUID): ProfileModel?
 
-    suspend fun getGameProfile(uuid: UUID): GameProfile?
+    suspend fun getGameProfile(uuid: UUID): GameProfileModel?
 
-    suspend fun getAll(): List<Profile>
+    suspend fun getAll(): List<ProfileModel>
 }

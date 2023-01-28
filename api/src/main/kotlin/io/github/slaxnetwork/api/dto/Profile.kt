@@ -1,4 +1,4 @@
-package io.github.slaxnetwork.api.models.views.profile
+package io.github.slaxnetwork.api.dto
 
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 import java.util.*
 
 @Serializable
-data class ProfileView(
+data class Profile(
     @Contextual
     val id: UUID,
 

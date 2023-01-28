@@ -8,13 +8,11 @@ import io.github.slaxnetwork.database.impl.postgres.utils.execute
 import io.github.slaxnetwork.database.impl.postgres.utils.firstNullableRow
 import io.github.slaxnetwork.database.impl.postgres.utils.firstRow
 import io.github.slaxnetwork.database.repositories.GameProfileRepository
-import io.github.slaxnetwork.database.repositories.ProfilePreferencesRepository
 import io.github.slaxnetwork.database.repositories.ProfileRepository
 import java.util.*
 
 class PostgresProfileRepository(
     private val conn: SuspendingConnection,
-    private val profilePreferencesRepository: ProfilePreferencesRepository,
     private val gameProfileRepository: GameProfileRepository
 ) : ProfileRepository {
     override suspend fun create(uuid: UUID): Profile {
