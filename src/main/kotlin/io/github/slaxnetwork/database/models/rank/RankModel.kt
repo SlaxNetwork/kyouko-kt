@@ -1,4 +1,4 @@
-package io.github.slaxnetwork.api.models.rank
+package io.github.slaxnetwork.database.models.rank
 
 import com.github.jasync.sql.db.RowData
 import io.github.slaxnetwork.api.exceptions.DatabaseDeserializeException

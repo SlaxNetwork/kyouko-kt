@@ -1,8 +1,8 @@
-package io.github.slaxnetwork.api.models.profile
+package io.github.slaxnetwork.database.models.profile
 
 import com.github.jasync.sql.db.RowData
 import io.github.slaxnetwork.api.exceptions.DatabaseDeserializeException
-import io.github.slaxnetwork.api.models.views.profile.Profile
+import io.github.slaxnetwork.api.dto.Profile
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 import java.util.*

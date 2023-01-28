@@ -1,6 +1,6 @@
 package io.github.slaxnetwork.database.repositories.game
 
-import io.github.slaxnetwork.api.models.profile.game.cookieclicker.CookieClickerProfileModel
+import io.github.slaxnetwork.database.models.profile.game.cookieclicker.CookieClickerProfileModel
 import java.util.UUID
 
 interface CookieClickerRepository {

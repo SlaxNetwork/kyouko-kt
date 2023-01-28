@@ -1,7 +1,7 @@
 package io.github.slaxnetwork.database.impl.postgres.repositories
 
 import com.github.jasync.sql.db.SuspendingConnection
-import io.github.slaxnetwork.api.models.profile.game.GameProfileModel
+import io.github.slaxnetwork.database.models.profile.game.GameProfileModel
 import io.github.slaxnetwork.database.impl.postgres.utils.execute
 import io.github.slaxnetwork.database.impl.postgres.utils.firstNullableRow
 import io.github.slaxnetwork.database.impl.postgres.utils.firstRow

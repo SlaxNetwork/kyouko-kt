@@ -1,7 +1,7 @@
 package io.github.slaxnetwork.routing.ranks
 
 import io.github.slaxnetwork.api.exceptions.RouteError
-import io.github.slaxnetwork.api.models.rank.RankModel
+import io.github.slaxnetwork.database.models.rank.RankModel
 import io.github.slaxnetwork.database.repositories.RanksRepository
 import io.ktor.server.application.*
 import io.ktor.server.auth.*

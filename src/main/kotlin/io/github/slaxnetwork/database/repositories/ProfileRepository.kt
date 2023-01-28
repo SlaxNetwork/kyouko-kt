@@ -1,7 +1,7 @@
 package io.github.slaxnetwork.database.repositories
 
-import io.github.slaxnetwork.api.models.profile.game.GameProfileModel
-import io.github.slaxnetwork.api.models.profile.ProfileModel
+import io.github.slaxnetwork.database.models.profile.game.GameProfileModel
+import io.github.slaxnetwork.database.models.profile.ProfileModel
 import java.util.*
 
 interface ProfileRepository {

@@ -1,6 +1,6 @@
 package io.github.slaxnetwork.database.repositories
 
-import io.github.slaxnetwork.api.models.profile.game.GameProfileModel
+import io.github.slaxnetwork.database.models.profile.game.GameProfileModel
 import java.util.UUID
 
 interface GameProfileRepository {

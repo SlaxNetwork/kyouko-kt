@@ -1,4 +1,4 @@
-package io.github.slaxnetwork.api.models.views.profile
+package io.github.slaxnetwork.api.dto
 
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName

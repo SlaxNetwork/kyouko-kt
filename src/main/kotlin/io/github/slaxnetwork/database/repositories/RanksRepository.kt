@@ -1,6 +1,6 @@
 package io.github.slaxnetwork.database.repositories
 
-import io.github.slaxnetwork.api.models.rank.RankModel
+import io.github.slaxnetwork.database.models.rank.RankModel
 
 interface RanksRepository {
     suspend fun findById(id: String): RankModel?

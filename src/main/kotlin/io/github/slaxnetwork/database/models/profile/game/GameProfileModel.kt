@@ -1,4 +1,4 @@
-package io.github.slaxnetwork.api.models.profile.game
+package io.github.slaxnetwork.database.models.profile.game
 
 import com.github.jasync.sql.db.RowData
 import io.github.slaxnetwork.api.exceptions.DatabaseDeserializeException
