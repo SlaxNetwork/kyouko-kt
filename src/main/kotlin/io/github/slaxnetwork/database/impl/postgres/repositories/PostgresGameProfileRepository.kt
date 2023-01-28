@@ -1,12 +1,11 @@
 package io.github.slaxnetwork.database.impl.postgres.repositories
 
 import com.github.jasync.sql.db.SuspendingConnection
-import io.github.slaxnetwork.api.models.profile.game.GameProfile
+import io.github.slaxnetwork.database.models.profile.game.GameProfileModel
 import io.github.slaxnetwork.database.impl.postgres.utils.execute
 import io.github.slaxnetwork.database.impl.postgres.utils.firstNullableRow
 import io.github.slaxnetwork.database.impl.postgres.utils.firstRow
 import io.github.slaxnetwork.database.repositories.GameProfileRepository
-import io.github.slaxnetwork.database.repositories.game.CookieClickerRepository
 import java.util.*
 
 class PostgresGameProfileRepository(
@@ -20,7 +19,7 @@ class PostgresGameProfileRepository(
         ).firstRow.getInt("id")!!
     }
 
-    override suspend fun findById(id: Int): GameProfile? {
+    override suspend fun findById(id: Int): GameProfileModel? {
         val row = conn.execute(
             """
                 SELECT * FROM "GameProfile" WHERE id = ? LIMIT 1;
@@ -28,10 +27,10 @@ class PostgresGameProfileRepository(
             id
         ).firstNullableRow ?: return null
 
-        return GameProfile(row)
+        return GameProfileModel(row)
     }
 
-    override suspend fun findByUUID(uuid: UUID): GameProfile? {
+    override suspend fun findByUUID(uuid: UUID): GameProfileModel? {
         val row = conn.execute(
             """
                 SELECT (GP.*) FROM "Profile"
@@ -41,6 +40,6 @@ class PostgresGameProfileRepository(
             uuid
         ).firstNullableRow ?: return null
 
-        return GameProfile(row)
+        return GameProfileModel(row)
     }
 }

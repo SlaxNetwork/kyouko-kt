@@ -1,7 +1,7 @@
 package io.github.slaxnetwork.database.impl.postgres.repositories.game
 
 import com.github.jasync.sql.db.SuspendingConnection
-import io.github.slaxnetwork.api.models.profile.game.cookieclicker.CookieClickerProfile
+import io.github.slaxnetwork.database.models.profile.game.cookieclicker.CookieClickerProfileModel
 import io.github.slaxnetwork.database.impl.postgres.utils.execute
 import io.github.slaxnetwork.database.impl.postgres.utils.firstNullableRow
 import io.github.slaxnetwork.database.impl.postgres.utils.firstRow
@@ -37,7 +37,7 @@ class PostgresCookieClickerRepository(
         return id
     }
 
-    override suspend fun findById(id: Int): CookieClickerProfile? {
+    override suspend fun findById(id: Int): CookieClickerProfileModel? {
         val row = conn.execute(
             """
                 SELECT * FROM "CookieClickerProfile" CCP
@@ -47,10 +47,10 @@ class PostgresCookieClickerRepository(
             id
         ).firstNullableRow ?: return null
 
-        return CookieClickerProfile(row)
+        return CookieClickerProfileModel(row)
     }
 
-    override suspend fun findByUUID(uuid: UUID): CookieClickerProfile? {
+    override suspend fun findByUUID(uuid: UUID): CookieClickerProfileModel? {
         val id = conn.execute(
             """
                 SELECT (GP."cookieClickerProfileId") FROM "Profile" P

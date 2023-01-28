@@ -1,9 +1,9 @@
 package io.github.slaxnetwork.database.impl.postgres.repositories
 
 import com.github.jasync.sql.db.SuspendingConnection
-import io.github.slaxnetwork.api.models.rank.Rank
-import io.github.slaxnetwork.api.models.profile.game.GameProfile
-import io.github.slaxnetwork.api.models.profile.Profile
+import io.github.slaxnetwork.database.models.rank.RankModel
+import io.github.slaxnetwork.database.models.profile.game.GameProfileModel
+import io.github.slaxnetwork.database.models.profile.ProfileModel
 import io.github.slaxnetwork.database.impl.postgres.utils.execute
 import io.github.slaxnetwork.database.impl.postgres.utils.firstNullableRow
 import io.github.slaxnetwork.database.impl.postgres.utils.firstRow
@@ -15,24 +15,24 @@ class PostgresProfileRepository(
     private val conn: SuspendingConnection,
     private val gameProfileRepository: GameProfileRepository
 ) : ProfileRepository {
-    override suspend fun create(uuid: UUID): Profile {
+    override suspend fun create(uuid: UUID): ProfileModel {
         val gameProfileId = gameProfileRepository.create()
 
         val row = conn.execute(
             """
                 INSERT INTO "Profile" (id, "rankId", "gameProfileId") VALUES (?, ?, ?) RETURNING *; 
             """.trimIndent(),
-            uuid, Rank.DEFAULT_RANK_ID, gameProfileId
+            uuid, RankModel.DEFAULT_RANK_ID, gameProfileId
         ).firstRow
 
-        return Profile(row)
+        return ProfileModel(row)
     }
 
-    override suspend fun findByName(name: String): Profile? {
+    override suspend fun findByName(name: String): ProfileModel? {
         TODO("Not yet implemented")
     }
 
-    override suspend fun findByUUID(uuid: UUID): Profile? {
+    override suspend fun findByUUID(uuid: UUID): ProfileModel? {
         val row = conn.execute(
             """
                 SELECT * FROM "Profile" WHERE id = ? LIMIT 1;
@@ -40,10 +40,10 @@ class PostgresProfileRepository(
             uuid
         ).firstNullableRow ?: return null
 
-        return Profile(row)
+        return ProfileModel(row)
     }
 
-    override suspend fun getGameProfile(uuid: UUID): GameProfile? {
+    override suspend fun getGameProfile(uuid: UUID): GameProfileModel? {
         val gameProfileId = conn.execute(
             """
                 SELECT ("gameProfileId") from "Profile" WHERE id = ? LIMIT 1;
@@ -54,9 +54,9 @@ class PostgresProfileRepository(
         return gameProfileRepository.findById(gameProfileId)
     }
 
-    override suspend fun getAll(): List<Profile> {
+    override suspend fun getAll(): List<ProfileModel> {
         return conn.execute("""
             SELECT * FROM "Profile";
-        """.trimIndent()).rows.map { Profile(it) }
+        """.trimIndent()).rows.map { ProfileModel(it) }
     }
 }
