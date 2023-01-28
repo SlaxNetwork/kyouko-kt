@@ -11,6 +11,7 @@ data class CookieClickerProfileModel(
 
     val upgrades: CookieClickerUpgradesModel
 ) {
+    @Deprecated("use static method instead", level = DeprecationLevel.WARNING)
     constructor(rowData: RowData) :
             this(
                 rowData.getInt("id") ?: throw DatabaseDeserializeException(CookieClickerProfileModel::id),
@@ -18,8 +19,16 @@ data class CookieClickerProfileModel(
                 CookieClickerUpgradesModel(rowData)
             )
 
-    fun toView() = CookieClickerProfile(
+    companion object {
+        fun fromRowData(rowData: RowData) = CookieClickerProfileModel(
+            rowData.getInt("id") ?: throw DatabaseDeserializeException(CookieClickerProfileModel::id),
+            rowData.getInt("cookies") ?: throw DatabaseDeserializeException(CookieClickerProfileModel::cookies),
+            CookieClickerUpgradesModel.fromRowData(rowData)
+        )
+    }
+
+    fun toDTO() = CookieClickerProfile(
         cookies,
-        upgrades.toView()
+        upgrades.toDTO()
     )
 }

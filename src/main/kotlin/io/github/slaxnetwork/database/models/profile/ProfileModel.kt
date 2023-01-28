@@ -3,6 +3,8 @@ package io.github.slaxnetwork.database.models.profile
 import com.github.jasync.sql.db.RowData
 import io.github.slaxnetwork.api.exceptions.DatabaseDeserializeException
 import io.github.slaxnetwork.api.dto.Profile
+import io.github.slaxnetwork.api.dto.ProfilePreferences
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 import java.util.*
@@ -11,20 +13,28 @@ data class ProfileModel(
     @Contextual
     val id: UUID,
 
-    @SerialName("rank_id")
     val rankId: String,
 
-    val gameProfileId: Int
-) {
-    constructor(rowData: RowData) :
-            this(
-                rowData.getAs("id") ?: throw DatabaseDeserializeException(ProfileModel::id),
-                rowData.getString("rankId") ?: throw DatabaseDeserializeException(ProfileModel::rankId),
-                rowData.getInt("gameProfileId") ?: throw DatabaseDeserializeException(ProfileModel::gameProfileId)
-            )
+    val gameProfileId: Int,
 
-    fun toView() = Profile(
+    val preferencesId: Int
+) {
+    companion object {
+        fun fromRowData(
+            rowData: RowData
+        ) = ProfileModel(
+            rowData.getAs("id") ?: throw DatabaseDeserializeException(ProfileModel::id),
+            rowData.getString("rankId") ?: throw DatabaseDeserializeException(ProfileModel::rankId),
+            rowData.getInt("gameProfileId") ?: throw DatabaseDeserializeException(ProfileModel::gameProfileId),
+            rowData.getInt("preferencesId") ?: throw DatabaseDeserializeException(ProfileModel::preferencesId)
+        )
+    }
+
+    fun toDTO(
+        preferences: ProfilePreferences
+    ) = Profile(
         id,
+        preferences,
         rankId
     )
 }

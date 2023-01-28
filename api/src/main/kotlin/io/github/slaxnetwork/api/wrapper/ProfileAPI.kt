@@ -4,7 +4,7 @@ import io.github.slaxnetwork.api.dto.Profile
 import io.github.slaxnetwork.api.utils.client
 import io.github.slaxnetwork.api.wrapper.utils.bodyAsResult
 import io.ktor.client.request.*
-import java.util.UUID
+import java.util.*
 
 object ProfileAPI {
     suspend fun getProfileByUUID(uuid: UUID): Result<Profile> {

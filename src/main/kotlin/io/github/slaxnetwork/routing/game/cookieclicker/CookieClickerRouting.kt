@@ -3,7 +3,6 @@ package io.github.slaxnetwork.routing.game.cookieclicker
 import io.github.slaxnetwork.api.exceptions.RouteError
 import io.github.slaxnetwork.database.repositories.game.CookieClickerRepository
 import io.github.slaxnetwork.routing.game.GameResource
-import io.github.slaxnetwork.utils.toUUID
 import io.ktor.server.application.*
 import io.ktor.server.resources.*
 import io.ktor.server.response.*
@@ -22,6 +21,6 @@ fun Route.cookieClickerRouting() {
             ?: cookieClickerRepository.findById(cookieClickerRepository.create(uuid))
             ?: throw RuntimeException("failed to create profile for $uuid")
 
-        call.respond(profile.toView())
+        call.respond(profile.toDTO())
     }
 }
