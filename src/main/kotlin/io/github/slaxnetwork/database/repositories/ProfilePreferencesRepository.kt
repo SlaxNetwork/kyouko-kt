@@ -1,9 +1,9 @@
 package io.github.slaxnetwork.database.repositories
 
-import io.github.slaxnetwork.api.models.profile.ProfilePreferences
+import io.github.slaxnetwork.database.models.profile.ProfilePreferencesModel
 
 interface ProfilePreferencesRepository {
     suspend fun create(): Int
 
-    suspend fun findById(id: Int): ProfilePreferences?
+    suspend fun findById(id: Int): ProfilePreferencesModel?
 }

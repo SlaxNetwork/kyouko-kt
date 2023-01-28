@@ -1,23 +1,23 @@
-package io.github.slaxnetwork.api.models.profile
+package io.github.slaxnetwork.database.models.profile
 
 import com.github.jasync.sql.db.RowData
 import io.github.slaxnetwork.api.exceptions.DatabaseDeserializeException
-import io.github.slaxnetwork.api.models.views.profile.ProfilePreferencesView
+import io.github.slaxnetwork.api.dto.ProfilePreferences
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ProfilePreferences(
+data class ProfilePreferencesModel(
     val language: String
 ) {
     companion object {
         fun fromRowData(
             rowData: RowData
-        ) = ProfilePreferences(
+        ) = ProfilePreferencesModel(
             rowData.getString("language") ?: throw DatabaseDeserializeException(ProfilePreferences::language)
         )
     }
 
-    fun toView() = ProfilePreferencesView(
+    fun toView() = ProfilePreferences(
         language
     )
 }
