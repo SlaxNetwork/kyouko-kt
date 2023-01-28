@@ -10,6 +10,8 @@ data class ProfileView(
     @Contextual
     val id: UUID,
 
+    val preferences: ProfilePreferencesView,
+
     @SerialName("rank_id")
     val rankId: String
 )
