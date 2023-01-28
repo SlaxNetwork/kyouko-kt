@@ -5,6 +5,8 @@ import io.github.slaxnetwork.api.exceptions.DatabaseDeserializeException
 import io.github.slaxnetwork.api.dto.Profile
 import io.github.slaxnetwork.api.dto.ProfilePreferences
 import kotlinx.serialization.Contextual
+import kotlinx.serialization.Contextual
+import kotlinx.serialization.SerialName
 import java.util.*
 
 data class ProfileModel(
