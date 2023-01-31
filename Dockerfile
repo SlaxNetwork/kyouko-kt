@@ -1,7 +1,8 @@
 FROM gradle as build
 COPY --chown=gradle:gradle . /home/gradle/src
 WORKDIR /home/gradle/src
-RUN gradle buildFatJar --no-daemon
+#RUN gradle buildFatJar --no-daemon
+RUN gradle build
 
 FROM openjdk:17
 EXPOSE 8080:8080
