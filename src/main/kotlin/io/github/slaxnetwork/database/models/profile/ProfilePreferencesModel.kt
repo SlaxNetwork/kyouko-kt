@@ -2,10 +2,9 @@ package io.github.slaxnetwork.database.models.profile
 
 import com.github.jasync.sql.db.RowData
 import io.github.slaxnetwork.api.exceptions.DatabaseDeserializeException
-import io.github.slaxnetwork.api.dto.ProfilePreferences
+import io.github.slaxnetwork.api.dto.profile.ProfilePreferences
 import kotlinx.serialization.Serializable
 
-@Serializable
 data class ProfilePreferencesModel(
     val language: String
 ) {

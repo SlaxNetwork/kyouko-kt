@@ -1,4 +1,4 @@
-package io.github.slaxnetwork.api.dto.game.cookieclicker
+package io.github.slaxnetwork.api.dto.profile.game.cookieclicker
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

@@ -8,6 +8,8 @@ plugins {
     kotlin("jvm") version "1.8.0"
     id("io.ktor.plugin") version "2.2.2"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.8.0"
+
+    id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
 application {
@@ -20,14 +22,11 @@ application {
 allprojects {
     repositories {
         mavenCentral()
+        mavenLocal()
     }
 
     group = "io.github.slaxnetwork"
     version = "0.0.1"
-}
-
-repositories {
-    mavenCentral()
 }
 
 dependencies {
@@ -51,8 +50,6 @@ dependencies {
 
     implementation("io.insert-koin:koin-core:$koin_version")
     implementation("io.insert-koin:koin-ktor:$koin_version")
-
-    implementation("com.github.kittinunf.fuel:fuel:2.3.1")
 
     implementation(project(":shared"))
     implementation(project(":api"))

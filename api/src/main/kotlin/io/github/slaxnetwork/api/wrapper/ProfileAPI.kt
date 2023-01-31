@@ -1,6 +1,6 @@
 package io.github.slaxnetwork.api.wrapper
 
-import io.github.slaxnetwork.api.dto.Profile
+import io.github.slaxnetwork.api.dto.profile.Profile
 import io.github.slaxnetwork.api.utils.client
 import io.github.slaxnetwork.api.wrapper.utils.bodyAsResult
 import io.ktor.client.request.*

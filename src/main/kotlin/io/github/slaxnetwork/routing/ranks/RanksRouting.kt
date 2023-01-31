@@ -17,13 +17,13 @@ fun Route.ranksRouting() {
     val ranksRepository by inject<RanksRepository>()
 
     get<RanksResource> {
-        call.respond(ranksRepository.getAll())
+        call.respond(ranksRepository.getAll().map { it.toDTO() })
     }
 
     get<RanksResource.Id> { ctx ->
         val rank = ranksRepository.findById(ctx.id)
             ?: return@get call.respond(RouteError.NotFound)
-        call.respond(rank)
+        call.respond(rank.toDTO())
     }
 
     authenticate(
@@ -39,7 +39,7 @@ fun Route.ranksRouting() {
             }
 
             ranksRepository.create(rank)
-            call.respond(rank)
+            call.respond(rank.toDTO())
         }
 
         patch<RanksResource.Id> { ctx ->
@@ -51,7 +51,7 @@ fun Route.ranksRouting() {
             }
 
             ranksRepository.update(ctx.id, rank)
-            call.respond(rank)
+            call.respond(rank.toDTO())
         }
     }
 }

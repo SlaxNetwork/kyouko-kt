@@ -2,7 +2,7 @@ package io.github.slaxnetwork.database.models.profile.game.cookieclicker
 
 import com.github.jasync.sql.db.RowData
 import io.github.slaxnetwork.api.exceptions.DatabaseDeserializeException
-import io.github.slaxnetwork.api.dto.game.cookieclicker.CookieClickerUpgrades
+import io.github.slaxnetwork.api.dto.profile.game.cookieclicker.CookieClickerUpgrades
 
 data class CookieClickerUpgradesModel(
     val testUpgrade: Int

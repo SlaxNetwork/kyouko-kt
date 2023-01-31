@@ -13,8 +13,7 @@ internal object UUIDSerializer : KSerializer<UUID> {
 
     override fun deserialize(decoder: Decoder): UUID {
         var str = decoder.decodeString()
-        // oh god.
-        // TODO: 1/1/2023 please fix this, use binary conversion instead?
+
         if(str.length == 32) {
             val sb = StringBuilder(str)
             sb.insert(8, "-")
