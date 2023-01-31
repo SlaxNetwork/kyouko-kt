@@ -28,7 +28,6 @@ fun Application.configureKoin() {
 private val databaseModule = module {
     single {
         PostgresDatabase.create()
-
     }
 
     single<CookieClickerRepository> { PostgresCookieClickerRepository(get()) }
