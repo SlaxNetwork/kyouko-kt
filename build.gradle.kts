@@ -14,7 +14,8 @@ plugins {
     id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
-val engineMainName by extra("io.ktor.server.netty.EngineMain")
+//val engineMainName by extra("io.ktor.server.netty.EngineMain")
+val engineMainName by extra("io.github.slaxnetwork.ApplicationKt")
 
 application {
     mainClass.set(engineMainName)
@@ -55,11 +56,13 @@ dependencies {
     implementation("io.ktor:ktor-server-netty-jvm:$ktor_version")
     implementation("ch.qos.logback:logback-classic:$logback_version")
 
-    // migrating to
     implementation("com.github.jasync-sql:jasync-postgresql:$jasync_sql_version")
 
     implementation("io.insert-koin:koin-core:$koin_version")
     implementation("io.insert-koin:koin-ktor:$koin_version")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-properties:1.5.0-RC")
+    implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
 
     implementation(project(":shared"))
     implementation(project(":api"))

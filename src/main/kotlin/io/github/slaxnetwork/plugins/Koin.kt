@@ -1,5 +1,6 @@
 package io.github.slaxnetwork.plugins
 
+import io.github.slaxnetwork.Environment
 import io.github.slaxnetwork.database.impl.postgres.PostgresDatabase
 import io.github.slaxnetwork.database.impl.postgres.repositories.PostgresGameProfileRepository
 import io.github.slaxnetwork.database.impl.postgres.repositories.PostgresProfilePreferencesRepository
@@ -15,20 +16,22 @@ import io.ktor.server.application.*
 import org.koin.dsl.module
 import org.koin.ktor.plugin.Koin
 
-const val DB_NAME = "slaxnetwork"
-
-fun Application.configureKoin() {
+fun Application.configureKoin(env: Environment) {
     install(Koin) {
+
         modules(
-            databaseModule(this@configureKoin.environment)
+            environmentModule(env),
+            databaseModule
         )
     }
 }
 
-private fun databaseModule(env: ApplicationEnvironment) = module {
-    single {
-        PostgresDatabase.create(env)
-    }
+private fun environmentModule(env: Environment) = module {
+    single { env }
+}
+
+private val databaseModule = module {
+    single { PostgresDatabase.create(get()) }
 
     single<CookieClickerRepository> { PostgresCookieClickerRepository(get()) }
     single<GameProfileRepository> { PostgresGameProfileRepository(get()) }
