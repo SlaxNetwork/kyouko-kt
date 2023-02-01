@@ -1,3 +1,5 @@
+import io.ktor.plugin.features.*
+
 val ktor_version: String by project
 val kotlin_version: String by project
 val logback_version: String by project
@@ -12,12 +14,44 @@ plugins {
     id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
+val engineMainName by extra("io.ktor.server.netty.EngineMain")
+
 application {
-    mainClass.set("io.ktor.server.netty.EngineMain")
+    mainClass.set(engineMainName)
 
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
 }
+
+ktor {
+    fatJar {
+        archiveFileName.set("kyouko-api.jar")
+    }
+}
+
+//jib {
+//    container {
+//        ports = listOf("8080")
+//        mainClass = engineMainName
+//    }
+//}
+
+//ktor {
+//    docker {
+//        localImageName.set("kyouko-api")
+//        imageTag.set("${project.version}")
+//        jreVersion.set(io.ktor.plugin.features.JreVersion.JRE_17)
+//
+//
+//        portMappings.set(listOf(
+//            DockerPortMapping(
+//                8080,
+//                8080,
+//                io.ktor.plugin.features.DockerPortMappingProtocol.TCP
+//            )
+//        ))
+//    }
+//}
 
 allprojects {
     repositories {

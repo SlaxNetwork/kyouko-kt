@@ -20,14 +20,14 @@ const val DB_NAME = "slaxnetwork"
 fun Application.configureKoin() {
     install(Koin) {
         modules(
-            databaseModule
+            databaseModule(this@configureKoin.environment)
         )
     }
 }
 
-private val databaseModule = module {
+private fun databaseModule(env: ApplicationEnvironment) = module {
     single {
-        PostgresDatabase.create()
+        PostgresDatabase.create(env)
     }
 
     single<CookieClickerRepository> { PostgresCookieClickerRepository(get()) }
