@@ -6,12 +6,14 @@ import io.github.slaxnetwork.database.impl.postgres.repositories.PostgresGamePro
 import io.github.slaxnetwork.database.impl.postgres.repositories.PostgresProfilePreferencesRepository
 import io.github.slaxnetwork.database.impl.postgres.repositories.PostgresProfileRepository
 import io.github.slaxnetwork.database.impl.postgres.repositories.PostgresRanksRepository
-import io.github.slaxnetwork.database.impl.postgres.repositories.game.PostgresCookieClickerRepository
+import io.github.slaxnetwork.database.impl.postgres.repositories.game.cookieclicker.PostgresCookieClickerRepository
+import io.github.slaxnetwork.database.impl.postgres.repositories.game.cookieclicker.PostgresCookieClickerUpgradesRepository
 import io.github.slaxnetwork.database.repositories.GameProfileRepository
 import io.github.slaxnetwork.database.repositories.ProfilePreferencesRepository
 import io.github.slaxnetwork.database.repositories.ProfileRepository
 import io.github.slaxnetwork.database.repositories.RanksRepository
 import io.github.slaxnetwork.database.repositories.game.CookieClickerRepository
+import io.github.slaxnetwork.database.repositories.game.CookieClickerUpgradesRepository
 import io.ktor.server.application.*
 import org.koin.dsl.module
 import org.koin.ktor.plugin.Koin
@@ -33,8 +35,11 @@ private fun environmentModule(env: Environment) = module {
 private val databaseModule = module {
     single { PostgresDatabase.create(get()) }
 
-    single<CookieClickerRepository> { PostgresCookieClickerRepository(get()) }
     single<GameProfileRepository> { PostgresGameProfileRepository(get()) }
+
+    single<CookieClickerUpgradesRepository> { PostgresCookieClickerUpgradesRepository(get()) }
+    single<CookieClickerRepository> { PostgresCookieClickerRepository(get(), get(), get()) }
+
     single<ProfilePreferencesRepository> { PostgresProfilePreferencesRepository(get()) }
     single<ProfileRepository> { PostgresProfileRepository(get(), get(), get()) }
     single<RanksRepository> { PostgresRanksRepository(get()) }

@@ -19,6 +19,17 @@ class PostgresGameProfileRepository(
         ).firstRow.getInt("id")!!
     }
 
+    override suspend fun getGameProfileId(uuid: UUID): Int? {
+        return conn.execute(
+            """
+                SELECT (GP.id) FROM "Profile"
+                    INNER JOIN "GameProfile" GP on GP.id = "Profile"."gameProfileId"
+                    AND "Profile"."id" = ? LIMIT 1;
+            """.trimIndent(),
+            uuid
+        ).firstNullableRow?.getInt("id")
+    }
+
     override suspend fun findById(id: Int): GameProfileModel? {
         val row = conn.execute(
             """
@@ -27,7 +38,7 @@ class PostgresGameProfileRepository(
             id
         ).firstNullableRow ?: return null
 
-        return GameProfileModel(row)
+        return GameProfileModel.fromRowData(row)
     }
 
     override suspend fun findByUUID(uuid: UUID): GameProfileModel? {
@@ -40,6 +51,14 @@ class PostgresGameProfileRepository(
             uuid
         ).firstNullableRow ?: return null
 
-        return GameProfileModel(row)
+        return GameProfileModel.fromRowData(row)
+    }
+
+    override suspend fun setCookieClickerProfileId(uuid: UUID, id: Int) {
+        val gameProfileId = getGameProfileId(uuid) ?: return
+        conn.execute(
+            """UPDATE "GameProfile" SET "cookieClickerProfileId" = ? WHERE id = ?;""",
+            id, gameProfileId
+        )
     }
 }
